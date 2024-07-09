@@ -1,0 +1,48 @@
+<div class="flex flex-column p-2">
+  <h3>Buscador</h3>
+
+  <mat-form-field>
+    <mat-label>Buscador de libros</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="FilterInput"
+      (input)="FilterBook()"
+      [matAutocomplete]="auto"
+    />
+
+    <mat-autocomplete
+      autoActiveFirstOption
+      #auto="matAutocomplete"
+      (optionSelected)="onSelectedOption($event)"
+    >
+      <mat-option *ngFor="let book of Books" [value]="book">
+        {{ book.title }}
+      </mat-option>
+
+      <mat-option
+        *ngIf="Books.length === 0 && FilterInput.value && FilterInput.value.length > 0"
+        value=""
+      >
+        No se encontró nada con el término {{ FilterInput.value }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <div class="example-button-container">
+    <button color="secondary" mat-mini-fab (click)="toggleAdditionalFilters()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="showAdditionalFilters">
+    <app-additional-filter-page (filterChange)="onFilterChange($event)"></app-additional-filter-page>
+  </div>
+
+  <div class="filter-buttons mt-4">
+    <button mat-raised-button color="primary" (click)="applyFilter()" class="btn mr-3">Aplicar Filtro</button>
+    <button mat-raised-button color="warn" (click)="resetFilter()" class="btn ms-3 md-4">Limpiar Filtro</button>
+  </div>
+
+  <app-filtered-books-page [filteredBooks]="Books"></app-filtered-books-page>
+</div>

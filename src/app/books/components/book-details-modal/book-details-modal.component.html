@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>{{ book.title }}</h2>
+<div mat-dialog-content>
+  <p><strong>Autor:</strong> {{ book.author }}</p>
+  <p><strong>Género:</strong> {{ book.genre }}</p>
+  <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+  <p><strong>Publicado:</strong> {{ book.published }}</p>
+  <p><strong>Editorial:</strong> {{ book.publisher }}</p>
+  <p>{{ book.description }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true">Cerrar</button>
+</div>

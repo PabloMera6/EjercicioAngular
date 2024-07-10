@@ -19,8 +19,8 @@ import { BooksService } from '../../services/book.service';
 export class NewPageComponent implements OnInit {
 
   public bookForm: FormGroup;
-
   public generos: string[] = [];
+  public submitting: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -101,22 +101,35 @@ export class NewPageComponent implements OnInit {
   }
 
   onSubmit():void {
+    if (this.submitting) return; // Evita múltiples envíos
+    this.submitting = true; // Marca que se está enviando
 
-    if ( this.bookForm.invalid ) return;
+    if ( this.bookForm.invalid ) {
+      this.submitting = false; // Restablecer bandera si hay un error
+      return;
+    }
+
+    console.log('Submitting form:', this.currentBook); // Log para depuración
 
     if ( this.currentBook.id ) {
       this.booksService.updateBook( this.currentBook )
         .subscribe( book => {
           this.showSnackbar(`${ book.title } updated!`);
+          this.submitting = false; // Restablecer bandera después del envío
+          this.router.navigateByUrl('/books/filter');
+        }, () => {
+          this.submitting = false; // Restablecer bandera si hay un error
         });
-
       return;
     }
 
     this.booksService.addBook( this.currentBook )
       .subscribe( book => {
-        this.router.navigate(['/books/edit', book.id ]);
         this.showSnackbar(`${ book.title } created!`);
+        this.submitting = false; // Restablecer bandera después del envío
+        this.router.navigateByUrl('/books/filter');
+      }, () => {
+        this.submitting = false; // Restablecer bandera si hay un error
       });
   }
 

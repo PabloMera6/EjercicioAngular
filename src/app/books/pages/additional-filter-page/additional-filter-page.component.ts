@@ -54,6 +54,5 @@ export class AdditionalFilterPageComponent implements OnInit {
 
   resetForm() {
     this.bookForm.reset();
-    this.emitFilterValues();
   }
 }

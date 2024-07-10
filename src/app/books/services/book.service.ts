@@ -30,7 +30,7 @@ export class BooksService {
   }
 
   getSuggestions( query: string ): Observable<Book[]> {
-    return this.http.get<Book[]>(`${ this.baseUrl }/libros?q=${ query }&_limit=6`);
+    return this.http.get<Book[]>(`${ this.baseUrl }/libros?q=${ query }&_limit=20`);
   }
 
 
@@ -54,11 +54,21 @@ export class BooksService {
       query += `q=${filters.name}&`;
     }
 
-    if (filters.startDate && filters.endDate) {
+    if (filters.startDate) {
       const startDate = filters.startDate.toISOString();
-      const endDate = filters.endDate.toISOString();
-      query += `published_gte=${startDate}&published_lte=${endDate}&`;
+      query += `published_gte=${startDate}&`;
     }
+
+    if (filters.endDate) {
+      const endDate = filters.endDate.toISOString();
+      query += `published_lte=${endDate}&`;
+    }
+
+    // if (filters.startDate && filters.endDate) {
+    //   const startDate = filters.startDate.toISOString();
+    //   const endDate = filters.endDate.toISOString();
+    //   query += `published_gte=${startDate}&published_lte=${endDate}&`;
+    // }
 
     query = query.slice(0, -1);
 

@@ -41,7 +41,8 @@
 
   <div class="filter-buttons mt-4">
     <button mat-raised-button color="primary" (click)="applyFilter()" class="btn mr-3">Aplicar Filtro</button>
-    <button mat-raised-button color="warn" (click)="resetFilter()" class="btn ms-3 md-4">Limpiar Filtro</button>
+    <button mat-raised-button color="warn" (click)="resetFilter()" class="btn mr-3">Limpiar Filtro</button>
+    <a mat-raised-button color="secondary" href="/books/new-book" class = "btn" role = "button">Añadir libro</a>
   </div>
 
   <app-filtered-books-page [filteredBooks]="Books"></app-filtered-books-page>

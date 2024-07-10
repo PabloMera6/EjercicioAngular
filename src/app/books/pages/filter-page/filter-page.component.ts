@@ -43,9 +43,10 @@ export class FilterPageComponent implements OnInit{
 
   FilterBook() {
     const value: string = this.FilterInput.value || '';
-
-    this.BooksService.getSuggestions( value )
+    if(value.trim() !== ''){
+      this.BooksService.getSuggestions( value )
       .subscribe( Books => this.Books = Books );
+    }
   }
 
 

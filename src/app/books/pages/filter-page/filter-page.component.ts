@@ -90,8 +90,6 @@ export class FilterPageComponent implements OnInit{
   private filterBooks() {
     this.BooksService.filterBooks(this.Filter).subscribe(books => {
       this.Books = books;
-      console.log(this.Books);
     });
-    console.log(this.Filter);
   }
 }

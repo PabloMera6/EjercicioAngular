@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
@@ -63,15 +63,7 @@ export class BooksService {
       const endDate = filters.endDate.toISOString();
       query += `published_lte=${endDate}&`;
     }
-
-    // if (filters.startDate && filters.endDate) {
-    //   const startDate = filters.startDate.toISOString();
-    //   const endDate = filters.endDate.toISOString();
-    //   query += `published_gte=${startDate}&published_lte=${endDate}&`;
-    // }
-
     query = query.slice(0, -1);
-
     return this.http.get<Book[]>(query);
   }
 

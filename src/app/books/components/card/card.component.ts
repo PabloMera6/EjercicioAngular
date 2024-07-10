@@ -4,8 +4,7 @@ import { Book } from '../../interfaces/book.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { BookDetailsModalComponent } from '../book-details-modal/book-details-modal.component';
 
 @Component({
@@ -21,7 +20,6 @@ export class CardComponent implements OnInit {
 
   constructor(
     private BooksService: BooksService,
-    private router: Router,
     private snackbar: MatSnackBar,
     private dialog: MatDialog)
     {}

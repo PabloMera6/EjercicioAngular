@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
 
 import { Book } from '../../interfaces/book.interface';
 import { BooksService } from '../../services/book.service';
@@ -101,24 +100,22 @@ export class NewPageComponent implements OnInit {
   }
 
   onSubmit():void {
-    if (this.submitting) return; // Evita múltiples envíos
-    this.submitting = true; // Marca que se está enviando
+    if (this.submitting) return;
+    this.submitting = true;
 
     if ( this.bookForm.invalid ) {
-      this.submitting = false; // Restablecer bandera si hay un error
+      this.submitting = false;
       return;
     }
-
-    console.log('Submitting form:', this.currentBook); // Log para depuración
 
     if ( this.currentBook.id ) {
       this.booksService.updateBook( this.currentBook )
         .subscribe( book => {
           this.showSnackbar(`${ book.title } updated!`);
-          this.submitting = false; // Restablecer bandera después del envío
+          this.submitting = false;
           this.router.navigateByUrl('/books/filter');
         }, () => {
-          this.submitting = false; // Restablecer bandera si hay un error
+          this.submitting = false;
         });
       return;
     }
@@ -126,10 +123,10 @@ export class NewPageComponent implements OnInit {
     this.booksService.addBook( this.currentBook )
       .subscribe( book => {
         this.showSnackbar(`${ book.title } created!`);
-        this.submitting = false; // Restablecer bandera después del envío
+        this.submitting = false;
         this.router.navigateByUrl('/books/filter');
       }, () => {
-        this.submitting = false; // Restablecer bandera si hay un error
+        this.submitting = false;
       });
   }
 
